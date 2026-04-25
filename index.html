@@ -359,26 +359,147 @@
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
   /* MOBILE NAV TOGGLE */
-  .nav-toggle { display: none; background: none; border: none; color: var(--white); font-size: 24px; cursor: pointer; }
+  .nav-toggle { display: none; background: none; border: none; color: var(--white); font-size: 28px; cursor: pointer; padding: 4px 8px; line-height: 1; min-width: 44px; min-height: 44px; }
+  .nav-cta-mobile { display: none; }
 
-  @media (max-width: 900px) {
-    .nav-links { display: none; }
-    .nav-toggle { display: block; }
-    .hero-right { display: none; }
-    .hero { min-height: auto; padding-bottom: 80px; }
-    .hero-diagonal { display: none; }
-    .about-inner, .markets-inner, .contact-inner { grid-template-columns: 1fr; gap: 40px; }
-    .products-grid { grid-template-columns: 1fr 1fr; }
-    .why-grid { grid-template-columns: 1fr 1fr; }
-    .form-row { grid-template-columns: 1fr; }
-    .about-badge { left: 0; bottom: 0; }
-    .mv-grid { grid-template-columns: 1fr; }
+  /* MOBILE DRAWER */
+  .nav-drawer {
+    display: none; position: fixed; top: 68px; left: 0; right: 0; bottom: 0;
+    background: rgba(13,21,32,0.98); z-index: 99; flex-direction: column;
+    padding: 32px 6%; overflow-y: auto;
   }
+  .nav-drawer.open { display: flex; }
+  .nav-drawer .nav-links {
+    display: flex !important; flex-direction: column; gap: 0; list-style: none; width: 100%;
+  }
+  .nav-drawer .nav-links a {
+    display: block; padding: 18px 0; font-size: 28px; font-family: var(--font-display);
+    letter-spacing: 3px; border-bottom: 1px solid rgba(255,255,255,0.06);
+    color: var(--concrete-light); text-decoration: none;
+  }
+  .nav-drawer .nav-links a:active { color: var(--gold); }
+  .nav-drawer-cta {
+    display: block; margin-top: 32px; background: var(--gold); color: var(--steel);
+    font-family: var(--font-cond); font-size: 17px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase; padding: 18px; text-align: center;
+    text-decoration: none; border: none;
+  }
+
+  /* TABLET */
+  @media (max-width: 960px) {
+    nav { padding: 0 4%; }
+    .nav-links { display: none !important; }
+    .nav-cta { display: none; }
+    .nav-toggle { display: flex; align-items: center; justify-content: center; }
+
+    .hero { min-height: 100svh; padding: 88px 4% 60px; align-items: flex-start; padding-top: 100px; }
+    .hero-right { display: none; }
+    .hero-diagonal { display: none; }
+    .hero-accent-line { display: none; }
+    .hero-content { max-width: 100%; }
+
+    .about-inner { grid-template-columns: 1fr; gap: 40px; }
+    .about-visual { max-width: 100%; aspect-ratio: auto; min-height: 320px; }
+    .about-badge { left: 0; bottom: -12px; }
+    .about-highlight { display: none; }
+    .mv-grid { grid-template-columns: 1fr 1fr; }
+
+    .products-grid { grid-template-columns: 1fr 1fr; }
+    .products-grid .prod-card[style*="grid-column: span 3"] { grid-column: span 2; }
+    .products-grid .prod-card[style*="grid-column: span 3"] > div[style*="grid-template-columns: repeat(4"] {
+      grid-template-columns: 1fr 1fr !important;
+    }
+
+    .why-grid { grid-template-columns: 1fr 1fr; }
+
+    .markets-inner { grid-template-columns: 1fr; gap: 40px; }
+
+    .cta-strip { flex-direction: column; align-items: flex-start; gap: 24px; padding: 48px 4%; }
+    .cta-strip .btn-dark { width: 100%; text-align: center; clip-path: none; padding: 18px; }
+
+    .contact-inner { grid-template-columns: 1fr; gap: 48px; }
+    .form-row { grid-template-columns: 1fr 1fr; }
+
+    footer { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .footer-tagline { display: none; }
+  }
+
+  /* PHONE */
   @media (max-width: 600px) {
-    .products-grid { grid-template-columns: 1fr; }
-    .why-grid { grid-template-columns: 1fr; }
-    .hero-stats { gap: 24px; flex-wrap: wrap; }
-    section { padding: 70px 5%; }
+    section { padding: 60px 4%; }
+
+    nav { padding: 0 4%; height: 60px; }
+    .nav-drawer { top: 60px; }
+    .nav-logo-text { font-size: 18px; }
+    .nav-logo-icon { width: 32px; height: 32px; font-size: 12px; }
+
+    .hero { padding: 80px 4% 50px; min-height: 100svh; }
+    .hero h1 { font-size: clamp(44px, 13vw, 72px); letter-spacing: 1px; }
+    .hero-sub { font-size: 15px; letter-spacing: 2px; margin-bottom: 16px; }
+    .hero p { font-size: 14px; margin-bottom: 28px; }
+    .hero-tag { font-size: 10px; letter-spacing: 2px; padding: 5px 12px; margin-bottom: 16px; }
+    .hero-btns { flex-direction: column; gap: 12px; }
+    .hero-btns .btn-primary, .hero-btns .btn-secondary {
+      width: 100%; text-align: center; padding: 16px; clip-path: none;
+      font-size: 14px;
+    }
+    .hero-stats { gap: 0; margin-top: 40px; padding-top: 28px; display: grid; grid-template-columns: repeat(3,1fr); }
+    .hero-stat-num { font-size: 32px; }
+    .hero-stat-label { font-size: 10px; }
+
+    .section-title { font-size: clamp(30px, 9vw, 44px); }
+
+    .about-inner { gap: 0; }
+    .about-visual { min-height: 260px; margin-bottom: 24px; }
+    .about-bg-block { clip-path: none; }
+    .about-inner-content { padding: 16px 12px; }
+    .about-icon-row { padding: 12px; gap: 12px; }
+    .about-icon-row h4 { font-size: 14px; }
+    .about-icon-row p { font-size: 12px; }
+    .about-badge { position: static; margin-top: 16px; display: inline-block; }
+    .mv-grid { grid-template-columns: 1fr; gap: 12px; margin-top: 24px; }
+    .mv-card { padding: 18px; }
+
+    .products-header { flex-direction: column; align-items: flex-start; margin-bottom: 32px; gap: 16px; }
+    .products-header .btn-primary { width: 100%; text-align: center; clip-path: none; padding: 14px; }
+    .products-grid { grid-template-columns: 1fr; gap: 2px; }
+    .prod-card { padding: 24px 20px; }
+    .prod-card[style*="grid-column: span 3"] { grid-column: span 1 !important; }
+    .prod-card[style*="grid-column: span 3"] > div[style*="grid-template-columns: repeat(4"] {
+      grid-template-columns: 1fr 1fr !important;
+      gap: 12px !important;
+    }
+
+    .why-grid { grid-template-columns: 1fr; gap: 2px; margin-top: 40px; }
+    .why-card { padding: 28px 20px; }
+
+    .markets-inner { gap: 32px; }
+    .markets-list { margin-top: 24px; }
+    .market-item { padding: 14px 0; gap: 14px; }
+    .market-icon-wrap { width: 40px; height: 40px; font-size: 18px; }
+    .market-name { font-size: 16px; }
+    .market-big-text { font-size: 72px; }
+    .market-card-stack { gap: 10px; }
+    .mcs { padding: 16px 18px; }
+    .mcs-val { font-size: 24px; }
+
+    .cta-strip { padding: 40px 4%; }
+    .cta-strip h2 { font-size: clamp(22px, 7vw, 32px); }
+    .cta-strip p { font-size: 14px; }
+
+    .contact-inner { gap: 40px; }
+    .form-row { grid-template-columns: 1fr; }
+    .form-group input, .form-group textarea, .form-group select {
+      font-size: 16px; padding: 14px 14px;
+    }
+    .btn-primary[style*="width: 100%"] { clip-path: none; font-size: 15px; padding: 18px; }
+    .ci-title { font-size: 28px; }
+    .ci-tagline { font-size: 12px; letter-spacing: 1.5px; }
+    .social-btn { width: 48px; height: 48px; font-size: 18px; }
+
+    footer { padding: 28px 4%; gap: 8px; }
+    footer > div:last-child { display: none; }
+    #toast { bottom: 16px; right: 16px; left: 16px; font-size: 14px; padding: 14px 16px; }
   }
 
   /* NOTIFY TOAST */
@@ -407,8 +528,18 @@
     <li><a href="#contact">Contact</a></li>
   </ul>
   <a href="#contact" class="nav-cta">Get a Quote</a>
-  <button class="nav-toggle" onclick="document.querySelector('.nav-links').style.display = document.querySelector('.nav-links').style.display === 'flex' ? 'none' : 'flex'">☰</button>
+  <button class="nav-toggle" id="navToggle" aria-label="Open menu">☰</button>
 </nav>
+<div class="nav-drawer" id="navDrawer">
+  <ul class="nav-links">
+    <li><a href="#about" onclick="closeDrawer()">About</a></li>
+    <li><a href="#products" onclick="closeDrawer()">Products</a></li>
+    <li><a href="#why" onclick="closeDrawer()">Why Us</a></li>
+    <li><a href="#markets" onclick="closeDrawer()">Markets</a></li>
+    <li><a href="#contact" onclick="closeDrawer()">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-drawer-cta" onclick="closeDrawer()">Get a Free Quote →</a>
+</div>
 
 <!-- HERO -->
 <section class="hero" id="home">
@@ -865,11 +996,27 @@
 <div id="toast">✅ Inquiry sent! We'll be in touch shortly.</div>
 
 <script>
+  // Mobile drawer
+  const drawer = document.getElementById('navDrawer');
+  const toggle = document.getElementById('navToggle');
+  function closeDrawer() {
+    drawer.classList.remove('open');
+    toggle.textContent = '☰';
+    document.body.style.overflow = '';
+  }
+  toggle.addEventListener('click', () => {
+    const isOpen = drawer.classList.toggle('open');
+    toggle.textContent = isOpen ? '✕' : '☰';
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+  // Close drawer on outside tap
+  drawer.addEventListener('click', e => { if (e.target === drawer) closeDrawer(); });
+
   // Scroll reveal
   const revealEls = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08, rootMargin: '0px 0px -20px 0px' });
   revealEls.forEach(el => observer.observe(el));
 
   // Form submit
@@ -880,11 +1027,11 @@
   }
 
   // Nav active state
-  const sections = document.querySelectorAll('section[id], .cta-strip');
-  const navLinks = document.querySelectorAll('.nav-links a');
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('nav .nav-links a');
   window.addEventListener('scroll', () => {
     let current = '';
-    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) current = s.id; });
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 90) current = s.id; });
     navLinks.forEach(a => {
       a.style.color = a.getAttribute('href') === '#' + current ? 'var(--gold)' : '';
     });
