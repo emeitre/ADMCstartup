@@ -887,28 +887,28 @@
       <div class="form-row">
         <div class="form-group">
           <label>First Name</label>
-          <input type="text" placeholder="Juan">
+          <input id="f_firstname" type="text" placeholder="Juan">
         </div>
         <div class="form-group">
           <label>Last Name</label>
-          <input type="text" placeholder="dela Cruz">
+          <input id="f_lastname" type="text" placeholder="dela Cruz">
         </div>
       </div>
       <div class="form-group">
         <label>Email Address</label>
-        <input type="email" placeholder="juan@company.com">
+        <input id="f_email" type="email" placeholder="juan@company.com">
       </div>
       <div class="form-group">
         <label>Phone Number</label>
-        <input type="tel" placeholder="+63 9XX XXX XXXX">
+        <input id="f_phone" type="tel" placeholder="+63 9XX XXX XXXX">
       </div>
       <div class="form-group">
         <label>Company / Project Name</label>
-        <input type="text" placeholder="Your Company or Project">
+        <input id="f_company" type="text" placeholder="Your Company or Project">
       </div>
       <div class="form-group">
         <label>Product Category Needed</label>
-        <select>
+        <select id="f_category">
           <option value="">Select a category...</option>
           <option>Electrical Supplies</option>
           <option>Lighting Solutions</option>
@@ -922,9 +922,9 @@
       </div>
       <div class="form-group">
         <label>Project Details / Message</label>
-        <textarea placeholder="Describe your project requirements, quantities needed, and timeline..."></textarea>
+        <textarea id="f_message" placeholder="Describe your project requirements, quantities needed, and timeline..."></textarea>
       </div>
-      <button class="btn-primary" style="width: 100%; padding: 16px;" onclick="submitForm()">Send Inquiry →</button>
+      <button id="submitBtn" class="btn-primary" style="width: 100%; padding: 16px;" onclick="submitForm()">Send Inquiry →</button>
     </div>
     <div class="contact-info reveal">
       <div class="ci-title">CONTACT INFORMATION</div>
@@ -995,7 +995,11 @@
 
 <div id="toast">✅ Inquiry sent! We'll be in touch shortly.</div>
 
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
+  // EmailJS init — public key from free account
+  emailjs.init('emFg5l_Ggp8GfRaj0');
+
   // Mobile drawer
   const drawer = document.getElementById('navDrawer');
   const toggle = document.getElementById('navToggle');
@@ -1009,7 +1013,6 @@
     toggle.textContent = isOpen ? '✕' : '☰';
     document.body.style.overflow = isOpen ? 'hidden' : '';
   });
-  // Close drawer on outside tap
   drawer.addEventListener('click', e => { if (e.target === drawer) closeDrawer(); });
 
   // Scroll reveal
@@ -1019,11 +1022,62 @@
   }, { threshold: 0.08, rootMargin: '0px 0px -20px 0px' });
   revealEls.forEach(el => observer.observe(el));
 
-  // Form submit
-  function submitForm() {
+  // Show toast helper
+  function showToast(msg, color) {
     const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.style.background = color || 'var(--green)';
     toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 4000);
+    setTimeout(() => toast.classList.remove('show'), 5000);
+  }
+
+  // Form submit with EmailJS
+  function submitForm() {
+    const btn = document.getElementById('submitBtn');
+    const firstName = document.getElementById('f_firstname').value.trim();
+    const lastName  = document.getElementById('f_lastname').value.trim();
+    const email     = document.getElementById('f_email').value.trim();
+    const phone     = document.getElementById('f_phone').value.trim();
+    const company   = document.getElementById('f_company').value.trim();
+    const category  = document.getElementById('f_category').value;
+    const message   = document.getElementById('f_message').value.trim();
+
+    // Basic validation
+    if (!firstName || !lastName) { showToast('⚠️ Please enter your full name.', '#B85C00'); return; }
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showToast('⚠️ Please enter a valid email address.', '#B85C00'); return; }
+    if (!message) { showToast('⚠️ Please describe your project or inquiry.', '#B85C00'); return; }
+
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+    btn.style.opacity = '0.7';
+
+    const templateParams = {
+      to_email:   'emeitredrei765@gmail.com',
+      from_name:  firstName + ' ' + lastName,
+      from_email: email,
+      phone:      phone || 'Not provided',
+      company:    company || 'Not provided',
+      category:   category || 'Not specified',
+      message:    message,
+    };
+
+    emailjs.send('service_bk3mcc4', 'template_ixthhaf', templateParams)
+      .then(() => {
+        showToast('✅ Inquiry sent! We\'ll be in touch shortly.');
+        // Clear form
+        ['f_firstname','f_lastname','f_email','f_phone','f_company','f_message'].forEach(id => document.getElementById(id).value = '');
+        document.getElementById('f_category').selectedIndex = 0;
+        btn.textContent = 'Send Inquiry →';
+        btn.disabled = false;
+        btn.style.opacity = '';
+      })
+      .catch(err => {
+        console.error('EmailJS error:', err);
+        showToast('❌ Failed to send. Please email us directly at emeitredrei765@gmail.com', '#8B1A1A');
+        btn.textContent = 'Send Inquiry →';
+        btn.disabled = false;
+        btn.style.opacity = '';
+      });
   }
 
   // Nav active state
