@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ADMC Construction Supply — Your One-Stop Partner</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #D4A017;
+    --gold-light: #F0C84A;
+    --gold-dark: #A07810;
+    --steel: #1A2332;
+    --steel-mid: #253347;
+    --steel-light: #3A4D63;
+    --concrete: #8A9BB0;
+    --concrete-light: #C5CDD8;
+    --white: #F8F9FA;
+    --orange: #E85D20;
+    --green: #2A7A4B;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-cond: 'Barlow Condensed', sans-serif;
+    --font-body: 'Barlow', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font-body); background: var(--steel); color: var(--white); overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+    background: rgba(26,35,50,0.96); backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(212,160,23,0.2);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%; height: 68px;
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .nav-logo-icon {
+    width: 38px; height: 38px; background: var(--gold);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-size: 14px; color: var(--steel); letter-spacing: 0.5px;
+  }
+  .nav-logo-text { font-family: var(--font-display); font-size: 22px; color: var(--white); letter-spacing: 2px; }
+  .nav-logo-text span { color: var(--gold); }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a { color: var(--concrete-light); font-size: 13px; font-weight: 500; text-decoration: none; letter-spacing: 1.5px; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta {
+    background: var(--gold); color: var(--steel); font-family: var(--font-cond);
+    font-size: 14px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    padding: 9px 22px; border: none; cursor: pointer; text-decoration: none;
+    clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--gold-light); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; position: relative; overflow: hidden;
+    display: flex; align-items: center;
+    background: linear-gradient(135deg, #0D1520 0%, #1A2332 50%, #0F1E30 100%);
+    padding: 68px 5% 0;
+  }
+  .hero-grid-bg {
+    position: absolute; inset: 0; opacity: 0.07;
+    background-image:
+      linear-gradient(var(--gold) 1px, transparent 1px),
+      linear-gradient(90deg, var(--gold) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-diagonal {
+    position: absolute; right: -5%; top: 0; bottom: 0; width: 55%;
+    background: linear-gradient(170deg, var(--steel-mid) 0%, #0F1E30 100%);
+    clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 0% 100%);
+  }
+  .hero-accent-line {
+    position: absolute; right: 42%; top: 0; bottom: 0; width: 4px;
+    background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+    opacity: 0.6;
+  }
+  .hero-content { position: relative; z-index: 2; max-width: 600px; }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(212,160,23,0.12); border: 1px solid rgba(212,160,23,0.4);
+    padding: 6px 16px; margin-bottom: 24px;
+    font-family: var(--font-cond); font-size: 12px; font-weight: 600;
+    letter-spacing: 3px; text-transform: uppercase; color: var(--gold);
+  }
+  .hero-tag::before { content: ''; width: 6px; height: 6px; background: var(--gold); transform: rotate(45deg); }
+  .hero h1 {
+    font-family: var(--font-display); font-size: clamp(56px, 8vw, 100px);
+    line-height: 0.9; letter-spacing: 3px; color: var(--white); margin-bottom: 8px;
+    animation: fadeUp 0.8s ease forwards;
+  }
+  .hero h1 .accent { color: var(--gold); display: block; }
+  .hero-sub {
+    font-family: var(--font-cond); font-size: 20px; font-weight: 400;
+    color: var(--concrete); letter-spacing: 4px; text-transform: uppercase;
+    margin-bottom: 28px; animation: fadeUp 0.8s 0.1s ease both;
+  }
+  .hero p {
+    font-size: 16px; line-height: 1.7; color: var(--concrete-light); max-width: 480px;
+    margin-bottom: 40px; animation: fadeUp 0.8s 0.2s ease both;
+  }
+  .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; animation: fadeUp 0.8s 0.3s ease both; }
+  .btn-primary {
+    background: var(--gold); color: var(--steel); font-family: var(--font-cond);
+    font-size: 15px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    padding: 14px 32px; border: none; cursor: pointer; text-decoration: none;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    transition: background 0.2s, transform 0.1s;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-secondary {
+    background: transparent; color: var(--white); font-family: var(--font-cond);
+    font-size: 15px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+    padding: 13px 32px; border: 1px solid rgba(255,255,255,0.3); cursor: pointer;
+    text-decoration: none; transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+  .hero-stats {
+    display: flex; gap: 40px; margin-top: 60px; padding-top: 40px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    animation: fadeUp 0.8s 0.4s ease both;
+  }
+  .hero-stat-num { font-family: var(--font-display); font-size: 42px; color: var(--gold); line-height: 1; }
+  .hero-stat-label { font-size: 12px; color: var(--concrete); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 4px; }
+  .hero-right {
+    position: absolute; right: 5%; top: 50%; transform: translateY(-50%);
+    z-index: 2; width: 420px; animation: fadeIn 1s 0.5s ease both;
+  }
+  .hero-product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .hero-product-card {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(212,160,23,0.15);
+    padding: 18px 16px; transition: border-color 0.2s, background 0.2s;
+  }
+  .hero-product-card:hover { border-color: rgba(212,160,23,0.5); background: rgba(212,160,23,0.05); }
+  .hero-product-card:first-child { grid-column: span 2; background: rgba(212,160,23,0.08); border-color: rgba(212,160,23,0.3); }
+  .hpc-icon { font-size: 24px; margin-bottom: 8px; }
+  .hpc-title { font-family: var(--font-cond); font-size: 14px; font-weight: 600; color: var(--white); letter-spacing: 1px; }
+  .hpc-desc { font-size: 12px; color: var(--concrete); margin-top: 4px; line-height: 1.5; }
+
+  /* SECTION COMMON */
+  section { padding: 100px 5%; }
+  .section-tag {
+    display: inline-flex; align-items: center; gap: 8px; margin-bottom: 16px;
+    font-family: var(--font-cond); font-size: 12px; font-weight: 600;
+    letter-spacing: 3px; text-transform: uppercase; color: var(--gold);
+  }
+  .section-tag::before { content: ''; width: 24px; height: 2px; background: var(--gold); }
+  .section-title {
+    font-family: var(--font-display); font-size: clamp(36px, 5vw, 60px);
+    letter-spacing: 2px; line-height: 1; color: var(--white); margin-bottom: 20px;
+  }
+  .section-title span { color: var(--gold); }
+  .section-subtitle { font-size: 16px; color: var(--concrete-light); line-height: 1.7; max-width: 560px; }
+
+  /* ABOUT */
+  .about { background: var(--steel); }
+  .about-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .about-visual {
+    position: relative; aspect-ratio: 1/1; max-width: 480px;
+  }
+  .about-bg-block {
+    position: absolute; inset: 0; background: var(--steel-mid);
+    clip-path: polygon(0 0, 88% 0, 100% 12%, 100% 100%, 12% 100%, 0 88%);
+  }
+  .about-highlight {
+    position: absolute; top: -12px; right: -12px; width: 60%; height: 60%;
+    background: rgba(212,160,23,0.08); border: 1px solid rgba(212,160,23,0.3);
+  }
+  .about-badge {
+    position: absolute; bottom: 24px; left: -24px;
+    background: var(--gold); padding: 20px 24px; z-index: 2;
+  }
+  .about-badge-num { font-family: var(--font-display); font-size: 48px; color: var(--steel); line-height: 1; }
+  .about-badge-label { font-family: var(--font-cond); font-size: 13px; font-weight: 600; color: var(--steel); letter-spacing: 1px; text-transform: uppercase; }
+  .about-inner-content { padding: 20px; position: relative; z-index: 1; }
+  .about-icon-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 24px; }
+  .about-icon-row {
+    display: flex; align-items: flex-start; gap: 16px;
+    padding: 16px; border-left: 3px solid var(--gold);
+    background: rgba(255,255,255,0.02);
+  }
+  .about-icon-row .aie { font-size: 20px; flex-shrink: 0; }
+  .about-icon-row h4 { font-family: var(--font-cond); font-size: 16px; font-weight: 600; letter-spacing: 1px; margin-bottom: 4px; }
+  .about-icon-row p { font-size: 13px; color: var(--concrete); line-height: 1.5; }
+  .mv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 32px; }
+  .mv-card {
+    padding: 24px; border: 1px solid rgba(255,255,255,0.06);
+    background: var(--steel-mid);
+  }
+  .mv-icon { font-size: 24px; margin-bottom: 12px; }
+  .mv-title { font-family: var(--font-cond); font-size: 14px; font-weight: 600; letter-spacing: 2px; color: var(--gold); text-transform: uppercase; margin-bottom: 8px; }
+  .mv-text { font-size: 13px; color: var(--concrete-light); line-height: 1.6; }
+
+  /* PRODUCTS */
+  .products { background: #0F1820; }
+  .products-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 60px; flex-wrap: wrap; gap: 20px; }
+  .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+  .prod-card {
+    background: var(--steel-mid); padding: 36px 28px; position: relative; overflow: hidden;
+    transition: background 0.3s; cursor: default;
+    border-bottom: 3px solid transparent;
+  }
+  .prod-card::before {
+    content: ''; position: absolute; top: 0; right: 0;
+    width: 0; height: 3px; background: var(--gold);
+    transition: width 0.4s ease;
+  }
+  .prod-card:hover::before { width: 100%; }
+  .prod-card:hover { background: #1F2F42; border-bottom-color: var(--gold); }
+  .prod-card-num {
+    font-family: var(--font-display); font-size: 64px; color: rgba(255,255,255,0.04);
+    position: absolute; top: 10px; right: 20px; line-height: 1; pointer-events: none;
+  }
+  .prod-icon { font-size: 32px; margin-bottom: 16px; }
+  .prod-title { font-family: var(--font-cond); font-size: 20px; font-weight: 700; letter-spacing: 1px; margin-bottom: 12px; color: var(--white); }
+  .prod-items { list-style: none; }
+  .prod-items li {
+    font-size: 13px; color: var(--concrete); padding: 5px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .prod-items li::before { content: '—'; color: var(--gold); font-size: 11px; flex-shrink: 0; }
+  .prod-card.featured {
+    background: rgba(212,160,23,0.08); border: 1px solid rgba(212,160,23,0.25);
+    grid-column: span 1;
+  }
+
+  /* WHY US */
+  .why { background: var(--steel); }
+  .why-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 60px; }
+  .why-card { padding: 40px 28px; background: var(--steel-mid); position: relative; overflow: hidden; }
+  .why-card::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+    background: var(--gold); transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .why-card:hover::after { transform: scaleX(1); }
+  .why-num {
+    font-family: var(--font-display); font-size: 80px; color: rgba(212,160,23,0.08);
+    position: absolute; top: 0; right: 10px; line-height: 1;
+  }
+  .why-icon { font-size: 36px; margin-bottom: 20px; }
+  .why-title { font-family: var(--font-cond); font-size: 18px; font-weight: 700; letter-spacing: 1px; margin-bottom: 12px; color: var(--white); }
+  .why-text { font-size: 13px; color: var(--concrete); line-height: 1.7; }
+
+  /* MARKETS */
+  .markets { background: #0F1820; }
+  .markets-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .markets-list { margin-top: 40px; }
+  .market-item {
+    display: flex; align-items: center; gap: 20px;
+    padding: 18px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+    transition: padding-left 0.3s;
+  }
+  .market-item:hover { padding-left: 12px; }
+  .market-icon-wrap {
+    width: 48px; height: 48px; background: rgba(212,160,23,0.1);
+    border: 1px solid rgba(212,160,23,0.2);
+    display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0;
+  }
+  .market-name { font-family: var(--font-cond); font-size: 18px; font-weight: 600; letter-spacing: 1px; color: var(--white); }
+  .market-desc { font-size: 13px; color: var(--concrete); margin-top: 2px; }
+  .market-visual { position: relative; }
+  .market-big-text {
+    font-family: var(--font-display); font-size: 120px; color: rgba(212,160,23,0.06);
+    line-height: 1; text-align: right; letter-spacing: 5px; user-select: none;
+  }
+  .market-card-stack { display: flex; flex-direction: column; gap: 16px; }
+  .mcs {
+    padding: 24px; background: var(--steel-mid); border-left: 4px solid var(--gold);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .mcs-label { font-family: var(--font-cond); font-size: 14px; color: var(--concrete-light); letter-spacing: 1px; }
+  .mcs-val { font-family: var(--font-display); font-size: 32px; color: var(--gold); }
+
+  /* CTA STRIP */
+  .cta-strip {
+    background: var(--gold); padding: 60px 5%;
+    display: flex; align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap;
+  }
+  .cta-strip h2 { font-family: var(--font-display); font-size: clamp(28px, 4vw, 48px); color: var(--steel); letter-spacing: 2px; line-height: 1.1; }
+  .cta-strip p { font-size: 15px; color: rgba(26,35,50,0.7); margin-top: 8px; max-width: 500px; }
+  .btn-dark {
+    background: var(--steel); color: var(--white); font-family: var(--font-cond);
+    font-size: 15px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    padding: 16px 36px; border: none; cursor: pointer; white-space: nowrap;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    text-decoration: none; transition: background 0.2s;
+  }
+  .btn-dark:hover { background: var(--steel-light); }
+
+  /* CONTACT */
+  .contact { background: var(--steel); }
+  .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
+  .contact-form-wrap { }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-group { margin-bottom: 20px; }
+  .form-group label { display: block; font-family: var(--font-cond); font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--concrete); margin-bottom: 8px; }
+  .form-group input, .form-group textarea, .form-group select {
+    width: 100%; background: var(--steel-mid); border: 1px solid rgba(255,255,255,0.08);
+    color: var(--white); font-family: var(--font-body); font-size: 15px;
+    padding: 13px 16px; outline: none; transition: border-color 0.2s;
+  }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--gold); }
+  .form-group textarea { resize: vertical; min-height: 120px; }
+  .form-group select option { background: var(--steel-mid); }
+  .contact-info { padding-top: 10px; }
+  .ci-title { font-family: var(--font-display); font-size: 36px; color: var(--white); letter-spacing: 2px; margin-bottom: 16px; }
+  .ci-tagline {
+    font-family: var(--font-cond); font-size: 14px; letter-spacing: 3px; color: var(--gold);
+    text-transform: uppercase; margin-bottom: 32px;
+  }
+  .ci-items { display: flex; flex-direction: column; gap: 0; }
+  .ci-item {
+    display: flex; gap: 16px; align-items: flex-start;
+    padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .ci-icon {
+    width: 44px; height: 44px; background: rgba(212,160,23,0.1); border: 1px solid rgba(212,160,23,0.2);
+    display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0;
+  }
+  .ci-label { font-family: var(--font-cond); font-size: 12px; letter-spacing: 2px; color: var(--gold); text-transform: uppercase; margin-bottom: 4px; }
+  .ci-val { font-size: 14px; color: var(--concrete-light); }
+  .social-row { display: flex; gap: 12px; margin-top: 32px; }
+  .social-btn {
+    width: 44px; height: 44px; background: var(--steel-mid); border: 1px solid rgba(255,255,255,0.1);
+    display: flex; align-items: center; justify-content: center; font-size: 16px;
+    text-decoration: none; transition: border-color 0.2s, background 0.2s; cursor: pointer;
+  }
+  .social-btn:hover { border-color: var(--gold); background: rgba(212,160,23,0.1); }
+
+  /* FOOTER */
+  footer {
+    background: #0A111C; padding: 40px 5%;
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: gap;
+    border-top: 1px solid rgba(212,160,23,0.15); gap: 20px;
+  }
+  .footer-logo { font-family: var(--font-display); font-size: 24px; color: var(--white); letter-spacing: 3px; }
+  .footer-logo span { color: var(--gold); }
+  .footer-copy { font-size: 12px; color: var(--concrete); }
+  .footer-tagline { font-family: var(--font-cond); font-size: 13px; color: var(--gold); letter-spacing: 2px; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* SCROLL REVEAL */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* MOBILE NAV TOGGLE */
+  .nav-toggle { display: none; background: none; border: none; color: var(--white); font-size: 24px; cursor: pointer; }
+
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .nav-toggle { display: block; }
+    .hero-right { display: none; }
+    .hero { min-height: auto; padding-bottom: 80px; }
+    .hero-diagonal { display: none; }
+    .about-inner, .markets-inner, .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+    .products-grid { grid-template-columns: 1fr 1fr; }
+    .why-grid { grid-template-columns: 1fr 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .about-badge { left: 0; bottom: 0; }
+    .mv-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .products-grid { grid-template-columns: 1fr; }
+    .why-grid { grid-template-columns: 1fr; }
+    .hero-stats { gap: 24px; flex-wrap: wrap; }
+    section { padding: 70px 5%; }
+  }
+
+  /* NOTIFY TOAST */
+  #toast {
+    position: fixed; bottom: 32px; right: 32px; z-index: 999;
+    background: var(--green); color: #fff; padding: 16px 24px;
+    font-family: var(--font-cond); font-size: 15px; letter-spacing: 1px;
+    opacity: 0; transition: opacity 0.3s; pointer-events: none;
+  }
+  #toast.show { opacity: 1; pointer-events: auto; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <div class="nav-logo-icon">AD</div>
+    <span class="nav-logo-text">ADMC <span>SUPPLY</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#products">Products</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#markets">Markets</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get a Quote</a>
+  <button class="nav-toggle" onclick="document.querySelector('.nav-links').style.display = document.querySelector('.nav-links').style.display === 'flex' ? 'none' : 'flex'">☰</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-diagonal"></div>
+  <div class="hero-accent-line"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Established 2026 · Philippines</div>
+    <h1>ADMC<br><span class="accent">CONSTRUCTION</span>SUPPLY</h1>
+    <p class="hero-sub">Your One-Stop Partner</p>
+    <p>Reliable, high-quality electrical, mechanical, fire protection, and general construction materials — supporting contractors, developers, and builders across the Philippines.</p>
+    <div class="hero-btns">
+      <a href="#products" class="btn-primary">Explore Products</a>
+      <a href="#contact" class="btn-secondary">Request a Quote</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-num">8+</div>
+        <div class="hero-stat-label">Product Categories</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">50+</div>
+        <div class="hero-stat-label">Product Lines</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">100%</div>
+        <div class="hero-stat-label">Quality Committed</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-product-grid">
+      <div class="hero-product-card">
+        <div class="hpc-icon">⚡</div>
+        <div class="hpc-title">Electrical Supplies</div>
+        <div class="hpc-desc">Wires, cables, circuit breakers, panel boards, conduits & more</div>
+      </div>
+      <div class="hero-product-card">
+        <div class="hpc-icon">🔥</div>
+        <div class="hpc-title">Fire Safety</div>
+        <div class="hpc-desc">FDAS alarms, detectors, suppression systems</div>
+      </div>
+      <div class="hero-product-card">
+        <div class="hpc-icon">❄️</div>
+        <div class="hpc-title">HVAC Systems</div>
+        <div class="hpc-desc">AC units, ventilation, ducts & fittings</div>
+      </div>
+      <div class="hero-product-card">
+        <div class="hpc-icon">🎥</div>
+        <div class="hpc-title">ELV / Auxiliary</div>
+        <div class="hpc-desc">CCTV, PABX, access control, PA systems</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-inner">
+    <div class="about-visual reveal">
+      <div class="about-bg-block">
+        <div class="about-inner-content">
+          <div class="about-icon-grid">
+            <div class="about-icon-row">
+              <div class="aie">🏗️</div>
+              <div>
+                <h4>Trusted Trading Partner</h4>
+                <p>Established March 2026, built on strong supplier relationships and a commitment to reliable supply chains.</p>
+              </div>
+            </div>
+            <div class="about-icon-row">
+              <div class="aie">🚚</div>
+              <div>
+                <h4>Efficient Logistics</h4>
+                <p>Flexible sourcing, coordinated delivery and logistics tailored to your project schedule and requirements.</p>
+              </div>
+            </div>
+            <div class="about-icon-row">
+              <div class="aie">💼</div>
+              <div>
+                <h4>Competitive Pricing</h4>
+                <p>Transparent, competitive pricing with no hidden costs — maximizing value for every project budget.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="about-highlight"></div>
+      <div class="about-badge">
+        <div class="about-badge-num">2026</div>
+        <div class="about-badge-label">Est. Philippines</div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="section-tag">About ADMC</div>
+      <h2 class="section-title">BUILDING <span>PARTNERSHIPS</span> THAT LAST</h2>
+      <p class="section-subtitle">ADMC Construction Supply is a growing trading company specializing in the supply of high-quality electrical, mechanical, fire protection, and general construction materials — dedicated to supporting contractors, developers, and businesses.</p>
+      <div class="mv-grid">
+        <div class="mv-card">
+          <div class="mv-icon">🎯</div>
+          <div class="mv-title">Our Mission</div>
+          <div class="mv-text">Deliver reliable, high-quality supplies at competitive prices with efficient service, timely delivery, and long-term client partnerships.</div>
+        </div>
+        <div class="mv-card">
+          <div class="mv-icon">🌟</div>
+          <div class="mv-title">Our Vision</div>
+          <div class="mv-text">Become a trusted, leading one-stop construction supply provider recognized for quality and excellence across local and international markets.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products" id="products">
+  <div class="products-header reveal">
+    <div>
+      <div class="section-tag">What We Supply</div>
+      <h2 class="section-title">COMPLETE <span>PRODUCT</span> RANGE</h2>
+    </div>
+    <a href="#contact" class="btn-primary">Request Catalog</a>
+  </div>
+  <div class="products-grid reveal">
+
+    <div class="prod-card">
+      <div class="prod-card-num">01</div>
+      <div class="prod-icon">⚡</div>
+      <div class="prod-title">Electrical Supplies</div>
+      <ul class="prod-items">
+        <li>Electrical wires and cables</li>
+        <li>Circuit breakers (MCB, MCCB, ELCB)</li>
+        <li>Panel boards and enclosures</li>
+        <li>Switches and outlets</li>
+        <li>Cable trays and ladders</li>
+        <li>Conduits (PVC, EMT, IMC)</li>
+        <li>Transformers, Generators, UPS</li>
+      </ul>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-card-num">02</div>
+      <div class="prod-icon">💡</div>
+      <div class="prod-title">Lighting Solutions</div>
+      <ul class="prod-items">
+        <li>Indoor and outdoor fixtures</li>
+        <li>LED and energy-efficient lighting</li>
+        <li>Industrial and flood lights</li>
+        <li>Street lighting systems</li>
+        <li>Solar lighting solutions</li>
+        <li>Smart lighting systems</li>
+      </ul>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-card-num">03</div>
+      <div class="prod-icon">❄️</div>
+      <div class="prod-title">Air Conditioning & HVAC</div>
+      <ul class="prod-items">
+        <li>Window, split-type, VRF units</li>
+        <li>Ventilation and exhaust fans</li>
+        <li>Air ducts and accessories</li>
+        <li>Refrigerant pipes and fittings</li>
+        <li>Insulation materials</li>
+        <li>HVAC controls and thermostats</li>
+      </ul>
+    </div>
+
+    <div class="prod-card featured">
+      <div class="prod-card-num">04</div>
+      <div class="prod-icon">🔥</div>
+      <div class="prod-title">Fire Detection & Safety (FDAS)</div>
+      <ul class="prod-items">
+        <li>Fire alarm control panels</li>
+        <li>Smoke and heat detectors</li>
+        <li>Manual call points</li>
+        <li>Alarm bells and strobes</li>
+        <li>Emergency and exit lighting</li>
+        <li>Fire extinguishers</li>
+        <li>Fire suppression systems</li>
+      </ul>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-card-num">05</div>
+      <div class="prod-icon">🎥</div>
+      <div class="prod-title">Auxiliary / ELV Systems</div>
+      <ul class="prod-items">
+        <li>CCTV systems</li>
+        <li>Structured cabling (LAN)</li>
+        <li>Data cabinets & server racks</li>
+        <li>Telephone systems (PABX)</li>
+        <li>Access control & biometrics</li>
+        <li>Intercom and video intercom</li>
+        <li>Public Address (PA) systems</li>
+      </ul>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-card-num">06</div>
+      <div class="prod-icon">🏗️</div>
+      <div class="prod-title">General Construction</div>
+      <ul class="prod-items">
+        <li>Steel bars and reinforcement</li>
+        <li>Fasteners (bolts, nuts, screws)</li>
+        <li>PVC, PPR, GI pipes & fittings</li>
+        <li>Plumbing fixtures</li>
+        <li>Hand tools and power tools</li>
+      </ul>
+    </div>
+
+    <div class="prod-card" style="grid-column: span 3; background: rgba(212,160,23,0.06); border-top: 2px solid var(--gold);">
+      <div class="prod-icon">🔋</div>
+      <div class="prod-title">Specialty & Energy Solutions</div>
+      <div style="display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; margin-top: 16px;">
+        <div><div style="font-family: var(--font-cond); font-size: 14px; color: var(--white); margin-bottom: 4px;">Solar Panel Systems</div><div style="font-size: 12px; color: var(--concrete);">Complete solar PV solutions for commercial and residential</div></div>
+        <div><div style="font-family: var(--font-cond); font-size: 14px; color: var(--white); margin-bottom: 4px;">Backup Power</div><div style="font-size: 12px; color: var(--concrete);">UPS systems and backup power for continuity</div></div>
+        <div><div style="font-family: var(--font-cond); font-size: 14px; color: var(--white); margin-bottom: 4px;">Energy-Efficient Solutions</div><div style="font-size: 12px; color: var(--concrete);">Smart systems to reduce energy consumption</div></div>
+        <div><div style="font-family: var(--font-cond); font-size: 14px; color: var(--white); margin-bottom: 4px;">Smart Building Systems</div><div style="font-size: 12px; color: var(--concrete);">Home and building automation integration</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why" id="why">
+  <div class="reveal" style="text-align: center; max-width: 600px; margin: 0 auto 0;">
+    <div class="section-tag" style="justify-content: center;">Why Choose ADMC</div>
+    <h2 class="section-title">OUR <span>COMMITMENT</span> TO YOU</h2>
+    <p class="section-subtitle" style="margin: 0 auto;">We're more than a supplier — we're a long-term partner dedicated to your project's success.</p>
+  </div>
+  <div class="why-grid reveal">
+    <div class="why-card">
+      <div class="why-num">01</div>
+      <div class="why-icon">✅</div>
+      <div class="why-title">Quality Products</div>
+      <div class="why-text">We source only dependable, certified construction and electrical materials from trusted suppliers — ensuring every product meets project standards.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-num">02</div>
+      <div class="why-icon">💰</div>
+      <div class="why-title">Competitive Pricing</div>
+      <div class="why-text">Transparent and competitive pricing with no hidden costs. We help you maximize budget efficiency on every project, large or small.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-num">03</div>
+      <div class="why-icon">⚡</div>
+      <div class="why-title">Responsive Service</div>
+      <div class="why-text">Fast, efficient, and responsive communication. We coordinate logistics and delivery to align with your project timelines.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-num">04</div>
+      <div class="why-icon">🤝</div>
+      <div class="why-title">Long-Term Partnerships</div>
+      <div class="why-text">We invest in building lasting relationships with both clients and suppliers — ensuring consistent supply and preferential terms.</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKETS -->
+<section class="markets" id="markets">
+  <div class="markets-inner">
+    <div class="reveal">
+      <div class="section-tag">Who We Serve</div>
+      <h2 class="section-title">OUR <span>TARGET</span> MARKET</h2>
+      <p class="section-subtitle">We cater to a wide range of construction and engineering stakeholders across the Philippines.</p>
+      <div class="markets-list">
+        <div class="market-item">
+          <div class="market-icon-wrap">🏗️</div>
+          <div>
+            <div class="market-name">Contractors & Subcontractors</div>
+            <div class="market-desc">Reliable bulk supply for on-site construction works</div>
+          </div>
+        </div>
+        <div class="market-item">
+          <div class="market-icon-wrap">🏢</div>
+          <div>
+            <div class="market-name">Engineering Firms</div>
+            <div class="market-desc">Specialized materials for M&E and civil engineering projects</div>
+          </div>
+        </div>
+        <div class="market-item">
+          <div class="market-icon-wrap">🏘️</div>
+          <div>
+            <div class="market-name">Property Developers</div>
+            <div class="market-desc">Comprehensive supply for residential and commercial developments</div>
+          </div>
+        </div>
+        <div class="market-item">
+          <div class="market-icon-wrap">🏪</div>
+          <div>
+            <div class="market-name">Retailers & Resellers</div>
+            <div class="market-desc">Wholesale pricing for distribution and retail operations</div>
+          </div>
+        </div>
+        <div class="market-item">
+          <div class="market-icon-wrap">👷</div>
+          <div>
+            <div class="market-name">Project Owners</div>
+            <div class="market-desc">Direct supply for commercial and residential project builds</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="market-visual reveal">
+      <div class="market-big-text">MKT</div>
+      <div class="market-card-stack" style="margin-top: -40px;">
+        <div class="mcs">
+          <div class="mcs-label">Product Categories</div>
+          <div class="mcs-val">8+</div>
+        </div>
+        <div class="mcs">
+          <div class="mcs-label">Target Market Segments</div>
+          <div class="mcs-val">5+</div>
+        </div>
+        <div class="mcs">
+          <div class="mcs-label">Delivery Coordination</div>
+          <div class="mcs-val">✓</div>
+        </div>
+        <div class="mcs">
+          <div class="mcs-label">Flexible Sourcing</div>
+          <div class="mcs-val">✓</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA STRIP -->
+<div class="cta-strip">
+  <div>
+    <h2>READY TO START YOUR NEXT PROJECT?</h2>
+    <p>Get a quote today and discover why contractors and developers trust ADMC Construction Supply for reliable, cost-effective materials.</p>
+  </div>
+  <a href="#contact" class="btn-dark">Get a Free Quote →</a>
+</div>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="reveal">
+      <div class="section-tag">Get in Touch</div>
+      <h2 class="section-title">REQUEST A <span>QUOTE</span></h2>
+      <p class="section-subtitle" style="margin-bottom: 36px;">Tell us about your project and we'll get back to you with the best pricing and availability.</p>
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" placeholder="Juan">
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" placeholder="dela Cruz">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" placeholder="juan@company.com">
+      </div>
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="tel" placeholder="+63 9XX XXX XXXX">
+      </div>
+      <div class="form-group">
+        <label>Company / Project Name</label>
+        <input type="text" placeholder="Your Company or Project">
+      </div>
+      <div class="form-group">
+        <label>Product Category Needed</label>
+        <select>
+          <option value="">Select a category...</option>
+          <option>Electrical Supplies</option>
+          <option>Lighting Solutions</option>
+          <option>Air Conditioning & HVAC</option>
+          <option>Fire Detection & Safety (FDAS)</option>
+          <option>Auxiliary / ELV Systems</option>
+          <option>General Construction Supplies</option>
+          <option>Specialty & Energy Solutions</option>
+          <option>Multiple Categories</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Project Details / Message</label>
+        <textarea placeholder="Describe your project requirements, quantities needed, and timeline..."></textarea>
+      </div>
+      <button class="btn-primary" style="width: 100%; padding: 16px;" onclick="submitForm()">Send Inquiry →</button>
+    </div>
+    <div class="contact-info reveal">
+      <div class="ci-title">CONTACT INFORMATION</div>
+      <div class="ci-tagline">"Your One-Stop Partner for Construction and Electrical Supply"</div>
+      <div class="ci-items">
+        <div class="ci-item">
+          <div class="ci-icon">📞</div>
+          <div>
+            <div class="ci-label">Phone</div>
+            <div class="ci-val">To be updated</div>
+          </div>
+        </div>
+        <div class="ci-item">
+          <div class="ci-icon">✉️</div>
+          <div>
+            <div class="ci-label">Email</div>
+            <div class="ci-val">To be updated</div>
+          </div>
+        </div>
+        <div class="ci-item">
+          <div class="ci-icon">📍</div>
+          <div>
+            <div class="ci-label">Address</div>
+            <div class="ci-val">Philippines</div>
+          </div>
+        </div>
+        <div class="ci-item">
+          <div class="ci-icon">🕐</div>
+          <div>
+            <div class="ci-label">Business Hours</div>
+            <div class="ci-val">Monday – Saturday<br>8:00 AM – 6:00 PM</div>
+          </div>
+        </div>
+      </div>
+      <div class="social-row">
+        <div class="social-btn" title="Facebook">f</div>
+        <div class="social-btn" title="Viber">V</div>
+        <div class="social-btn" title="WhatsApp">W</div>
+        <div class="social-btn" title="Messenger">M</div>
+      </div>
+
+      <div style="margin-top: 48px; padding: 28px; background: var(--steel-mid); border-left: 4px solid var(--gold);">
+        <div style="font-family: var(--font-cond); font-size: 14px; font-weight: 600; color: var(--gold); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px;">Why Inquire with ADMC?</div>
+        <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px;">
+          <li style="font-size: 14px; color: var(--concrete-light); display: flex; gap: 10px; align-items: flex-start;"><span style="color: var(--gold);">✓</span> Fast response and competitive quotations</li>
+          <li style="font-size: 14px; color: var(--concrete-light); display: flex; gap: 10px; align-items: flex-start;"><span style="color: var(--gold);">✓</span> Flexible supply based on project needs</li>
+          <li style="font-size: 14px; color: var(--concrete-light); display: flex; gap: 10px; align-items: flex-start;"><span style="color: var(--gold);">✓</span> Coordinated delivery and logistics</li>
+          <li style="font-size: 14px; color: var(--concrete-light); display: flex; gap: 10px; align-items: flex-start;"><span style="color: var(--gold);">✓</span> Trusted supplier network</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo">ADMC <span>SUPPLY</span></div>
+    <div class="footer-copy" style="margin-top: 6px;">© 2026 ADMC Construction Supply. All rights reserved.</div>
+  </div>
+  <div class="footer-tagline">"Your One-Stop Partner for Construction and Electrical Supply"</div>
+  <div style="display: flex; gap: 20px;">
+    <a href="#about" style="font-size: 12px; color: var(--concrete); text-decoration: none;">About</a>
+    <a href="#products" style="font-size: 12px; color: var(--concrete); text-decoration: none;">Products</a>
+    <a href="#contact" style="font-size: 12px; color: var(--concrete); text-decoration: none;">Contact</a>
+  </div>
+</footer>
+
+<div id="toast">✅ Inquiry sent! We'll be in touch shortly.</div>
+
+<script>
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  revealEls.forEach(el => observer.observe(el));
+
+  // Form submit
+  function submitForm() {
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 4000);
+  }
+
+  // Nav active state
+  const sections = document.querySelectorAll('section[id], .cta-strip');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) current = s.id; });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--gold)' : '';
+    });
+  });
+</script>
+</body>
+</html>
