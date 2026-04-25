@@ -160,15 +160,16 @@
   .about { background: var(--steel); }
   .about-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
   .about-visual {
-    position: relative; aspect-ratio: 1/1; max-width: 480px;
+    position: relative; max-width: 480px;
   }
   .about-bg-block {
-    position: absolute; inset: 0; background: var(--steel-mid);
+    background: var(--steel-mid);
     clip-path: polygon(0 0, 88% 0, 100% 12%, 100% 100%, 12% 100%, 0 88%);
   }
   .about-highlight {
     position: absolute; top: -12px; right: -12px; width: 60%; height: 60%;
     background: rgba(212,160,23,0.08); border: 1px solid rgba(212,160,23,0.3);
+    pointer-events: none;
   }
   .about-badge {
     position: absolute; bottom: 24px; left: -24px;
@@ -399,8 +400,8 @@
     .hero-content { max-width: 100%; }
 
     .about-inner { grid-template-columns: 1fr; gap: 40px; }
-    .about-visual { max-width: 100%; aspect-ratio: auto; min-height: 320px; }
-    .about-badge { left: 0; bottom: -12px; }
+    .about-visual { max-width: 100%; }
+    .about-badge { position: static; display: inline-block; margin-top: 16px; }
     .about-highlight { display: none; }
     .mv-grid { grid-template-columns: 1fr 1fr; }
 
@@ -449,8 +450,7 @@
 
     .section-title { font-size: clamp(30px, 9vw, 44px); }
 
-    .about-inner { gap: 0; }
-    .about-visual { min-height: 260px; margin-bottom: 24px; }
+    .about-inner { gap: 24px; }
     .about-bg-block { clip-path: none; }
     .about-inner-content { padding: 16px 12px; }
     .about-icon-row { padding: 12px; gap: 12px; }
@@ -600,6 +600,7 @@
 <section class="about" id="about">
   <div class="about-inner">
     <div class="about-visual reveal">
+      <div class="about-highlight"></div>
       <div class="about-bg-block">
         <div class="about-inner-content">
           <div class="about-icon-grid">
@@ -627,7 +628,6 @@
           </div>
         </div>
       </div>
-      <div class="about-highlight"></div>
       <div class="about-badge">
         <div class="about-badge-num">2026</div>
         <div class="about-badge-label">Est. Philippines</div>
